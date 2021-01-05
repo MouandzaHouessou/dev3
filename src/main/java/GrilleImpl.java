@@ -50,10 +50,10 @@ public class GrilleImpl implements Grille {
           throw new IllegalArgumentException("Existe dans la colonne");
         }
       }
-      for (int i = calculRegion(x, y)[0][0];
-        i < calculRegion(x, y)[0][1]; i++) {
-        for (int j = calculRegion(x, y)[1][0];
-          j < calculRegion(x, y)[1][1]; j++) {
+      for (int i = calculRegion(x, y, (int)Math.sqrt(getDimension()))[0][0];
+        i < calculRegion(x, y, (int)Math.sqrt(getDimension()))[0][1]; i++) {
+        for (int j = calculRegion(x, y, (int)Math.sqrt(getDimension()))[1][0];
+          j < calculRegion(x, y, (int)Math.sqrt(getDimension()))[1][1]; j++) {
           if (this.grille[i][j] == value) {
             throw new IllegalArgumentException("Existe dans la region");
           }
@@ -112,9 +112,8 @@ public class GrilleImpl implements Grille {
    * @param y position dans la grille
    * @return un interval de coodonnees x et y d'une regions.
    */
-  public final int[][] calculRegion(final int x, final int y) {
+  public final int[][] calculRegion(final int x, final int y, final int tailleRegion ) {
     //base qui represente une region à trois cellule
-    final int tailleRegion = 3;
     int regionX = (int) Math.floor(x / tailleRegion) + 1;
     int regionY = ((int) Math.floor(y / tailleRegion)) * tailleRegion;
     //Intervalle des cordonnees de la region
