@@ -18,27 +18,26 @@ import java.nio.charset.StandardCharsets;
  *  Classe permettant initialiser une grille a partir.
  *  Des donnees contenues dans un fichier
  */
-public final class GrilleParser {
+public abstract class AbstractGrilleParser {
   /**
    *  Constructeur par defaut de la classe.
    */
-  private GrilleParser() {
+  private AbstractGrilleParser() {
   }
 
   /**
    *  Methode permettant de charger une grille a l'aide
    *  des donnees contenues dans un flux.
-   *  @param in le le flux de donnees a exploiter.
+   *  @param input le le flux de donnees a exploiter.
    *  @param grille la grille sur laquelle effectuer l'opreration
    *  @throws EOFException si la donnee lus n'est pas correcte
    *  @throws IOException si la donnee lus ne sont pas correctes
    */
-  public static void parse(final InputStream in, final GrilleImpl grille)
+  public static void parse(final InputStream input, final GrilleImpl grille)
       throws IOException {
-    Reader reader = new InputStreamReader(in, StandardCharsets.UTF_8);
+    Reader reader = new InputStreamReader(input, StandardCharsets.UTF_8);
     int dimension = grille.getDimension();
     char[] buffer = new char[dimension];
-
     for (int line = 0; line < dimension; line++) {
       int lus = reader.read(buffer);
       if (lus != dimension) {
@@ -62,13 +61,13 @@ public final class GrilleParser {
   /**
    *  Methode permettant de charger une grille a l'aide
    *  des donnees contenues dans un fichier.
-   *  @param f le fichier a lire.
+   *  @param file le fichier a lire.
    *  @param grille la grille sur laquelle effectuer l'opreration
    *  @throws IOException si la donnee lus n'est pas correcte
    */
-  public static void parse(final File f, final GrilleImpl grille)
+  public static void parse(final File file, final GrilleImpl grille)
       throws IOException {
-    parse(new FileInputStream(f), grille);
+    parse(new FileInputStream(file), grille);
   }
 
 }

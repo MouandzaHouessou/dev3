@@ -3,7 +3,7 @@ package main.java;
  * Interface d'un solveur de sudoku.
  */
 public interface Resolveur {
- 
+
 /**
  * Une methode qui resout une grille de sodoku.
  *
@@ -19,4 +19,5 @@ public interface Resolveur {
  * @param grille a affiche
  */
   void afficheGrille(final GrilleImpl grille);
+
 }

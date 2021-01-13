@@ -5,7 +5,7 @@ import main.java.*;
 import java.io.File;
 import java.io.IOException;
 /**
- * Tests unitaire pour la classe Grille.
+ * Tests unitaire pour la classe Resolveur.
  * @author HOUESSOU
  */
 public class testResolveur {
@@ -21,8 +21,8 @@ public class testResolveur {
   public void resoudGrille() {
     fichierSodoku = new File(cheminFichierSodoku9x9);
     try {
-      GrilleParser.parse(fichierSodoku, Sodoku9x9);
-      assertEquals(true, solveur.resoudGrille(Grille.POSSIBLE, Sodoku9x9));
+      AbstractGrilleParser.parse(fichierSodoku, Sodoku9x9);
+      assertEquals(true, solveur.resoudGrille(Sodoku9x9.getValeurPossible(), Sodoku9x9));
     } catch (IOException e) {
       e.printStackTrace();
     }

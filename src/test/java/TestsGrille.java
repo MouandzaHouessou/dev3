@@ -2,6 +2,8 @@ package test.java;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 import main.java.*;
+import java.io.File;
+import java.io.IOException;
 /**
  * Tests unitaire pour la classe Grille.
  * @author HOUESSOU
@@ -11,6 +13,8 @@ public class TestsGrille {
  *declaration de interface grille;
  */
 Grille grille = new GrilleImpl(9);
+  
+
 
 /**
  * Test pour recuperer  la dimension du tableau
@@ -51,7 +55,7 @@ Grille grille = new GrilleImpl(9);
       final int y2 = 2;
       final char value2 = '1';
       grille.setValue(x2, y2, value2);
-      fail("L'exception: cet élèement existe deja dans une colonne");
+      fail("L'exception: cet élèment existe deja dans une colonne");
   } catch (IllegalArgumentException e) {
      //Ne rien faire c'est normal
   }
@@ -70,7 +74,7 @@ Grille grille = new GrilleImpl(9);
       final int y2 = 8;
       final char value2 = '1';
       grille.setValue(x2, y2, value2);
-      fail("L'exception: cet élèement existe deja dans une ligne");
+      fail("L'exception: cet élèment existe deja dans une ligne");
    } catch (IllegalArgumentException e) {
      //Ne rien faire c'est normal
    }
@@ -154,7 +158,20 @@ Grille grille = new GrilleImpl(9);
     } catch (IllegalArgumentException e) {
       //Ne rien faire c'est normal
     }
+  }
+
+   /*
+  *Test retourne IllegalArgumentException 
+  * si x ou y sont hors bornes (0-8)
+  * x > 8
+  */
+  @Test
+  public void TestGetValue4(){
     
+    final int x = 3;
+    final int y = 4;
+    grille.setValue(x, y, '@');
+    assertEquals('@', grille.getValue(x, y));
   }
 
 /*
@@ -249,4 +266,24 @@ Grille grille = new GrilleImpl(9);
     final char value2 = '1';
     assertEquals(true, grille.possible(x2, y2, value2));
   }
+
+  /**
+   * Creation de la grille de sodoku.
+  */
+  String cheminFichierSodoku9x9 = "sudoku9x9.txt";
+  String cheminFichierSodoku16x16 = "sudoku-16x16.txt";
+  File fichierSodoku;
+  Resolveur solveur = new ResolveurImpl();
+
+  @Test
+  public void resoudGrille1() {
+    GrilleImpl Sodoku9x9 = new GrilleImpl(9);
+    fichierSodoku = new File(cheminFichierSodoku9x9);
+    try {
+      AbstractGrilleParser.parse(fichierSodoku, Sodoku9x9);
+      assertEquals(true, solveur.resoudGrille(Sodoku9x9.getValeurPossible(), Sodoku9x9));
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  } 
 }
